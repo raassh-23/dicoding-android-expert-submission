@@ -12,11 +12,11 @@ import java.lang.Exception
 
 class RemoteDataSource(private val apiService: ApiService) {
 
-    fun getAllTourism(): Flow<ApiResponse<List<MovieResponse>>> {
+    fun getAllMovie(): Flow<ApiResponse<List<MovieResponse>>> {
         return flow {
             try {
                 val response = apiService.getList()
-                val dataArray = response.places
+                val dataArray = response.results
 
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(dataArray))

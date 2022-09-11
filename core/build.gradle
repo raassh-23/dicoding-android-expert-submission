@@ -21,7 +21,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
 
+        // to get api key, check https://developers.themoviedb.org/3/getting-started/authentication
         buildConfigField "String", "API_KEY", localProperties['apiKey']
+        buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
+        buildConfigField "String", "BASE_IMAGE_URL", "\"https://image.tmdb.org/t/p/original\""
     }
 
     buildTypes {

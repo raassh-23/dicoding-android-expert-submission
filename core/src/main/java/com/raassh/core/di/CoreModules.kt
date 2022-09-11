@@ -1,6 +1,7 @@
 package com.raassh.core.di
 
 import androidx.room.Room
+import com.raassh.core.BuildConfig
 import com.raassh.core.data.MovieRepository
 import com.raassh.core.data.source.local.LocalDataSource
 
@@ -33,6 +34,12 @@ val networkModule = module {
     single {
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor {
+                val original = it.request()
+                val url = original.url.newBuilder()
+                    .addQueryParameter("api_key", BuildConfig.API_KEY).build()
+                it.proceed(original.newBuilder().url(url).build())
+            }
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .build()
@@ -40,7 +47,7 @@ val networkModule = module {
 
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()

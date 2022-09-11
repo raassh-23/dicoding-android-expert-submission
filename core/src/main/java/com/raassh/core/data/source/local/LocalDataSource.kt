@@ -6,15 +6,15 @@ import kotlinx.coroutines.flow.Flow
 
 class LocalDataSource(private val movieDao: MovieDao) {
 
-    fun getAllTourism(): Flow<List<MovieEntity>> = movieDao.getAllTourism()
+    fun getAllMovie(): Flow<List<MovieEntity>> = movieDao.getAllMovie()
 
-    fun getFavoriteTourism(): Flow<List<MovieEntity>> = movieDao.getFavoriteTourism()
+    fun getFavoriteMovie(): Flow<List<MovieEntity>> = movieDao.getFavoriteMovie()
 
-    suspend fun insertTourism(tourismList: List<MovieEntity>) =
-        movieDao.insertTourism(tourismList)
+    suspend fun insertMovie(movieList: List<MovieEntity>) =
+        movieDao.insertMovie(movieList)
 
-    fun setFavoriteTourism(tourism: MovieEntity, newState: Boolean) {
-        tourism.isFavorite = newState
-        movieDao.updateFavoriteTourism(tourism)
+    fun setFavoriteMovie(movie: MovieEntity, newState: Boolean) {
+        movie.isFavorite = newState
+        movieDao.updateFavoriteMovie(movie)
     }
 }

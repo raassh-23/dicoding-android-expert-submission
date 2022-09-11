@@ -3,7 +3,7 @@ package com.raassh.core.data
 import com.raassh.core.data.source.remote.RemoteDataSource
 import com.raassh.core.data.source.remote.network.ApiResponse
 import com.raassh.core.data.source.remote.response.MovieResponse
-import com.raassh.core.domain.model.Movie
+import com.raassh.core.domain.model.MovieDomain
 import com.raassh.core.domain.repository.IMovieRepository
 import com.raassh.core.utils.AppExecutors
 import com.raassh.core.utils.DataMapper
@@ -16,36 +16,35 @@ class MovieRepository(
     private val appExecutors: AppExecutors
 ) : IMovieRepository {
 
-    override fun getAllTourism(): Flow<Resource<List<Movie>>> =
-        object : NetworkBoundResource<List<Movie>, List<MovieResponse>>(appExecutors) {
-            override fun loadFromDB(): Flow<List<Movie>> {
-                return localDataSource.getAllTourism().map {
+    override fun getAllMovie(): Flow<Resource<List<MovieDomain>>> =
+        object : NetworkBoundResource<List<MovieDomain>, List<MovieResponse>>(appExecutors) {
+            override fun loadFromDB(): Flow<List<MovieDomain>> {
+                return localDataSource.getAllMovie().map {
                     DataMapper.mapEntitiesToDomain(it)
                 }
             }
 
-            override fun shouldFetch(data: List<Movie>?): Boolean =
+            override fun shouldFetch(data: List<MovieDomain>?): Boolean =
                 data == null || data.isEmpty()
-//                 true // ganti dengan true jika ingin selalu mengambil data dari internet
 
             override suspend fun createCall(): Flow<ApiResponse<List<MovieResponse>>> =
-                remoteDataSource.getAllTourism()
+                remoteDataSource.getAllMovie()
 
             override suspend fun saveCallResult(data: List<MovieResponse>) {
                 val movieList = DataMapper.mapResponsesToEntities(data)
-                localDataSource.insertTourism(movieList)
+                localDataSource.insertMovie(movieList)
             }
         }.asFlow()
 
-    override fun getFavoriteTourism(): Flow<List<Movie>> {
-        return localDataSource.getFavoriteTourism().map {
+    override fun getFavoriteMovie(): Flow<List<MovieDomain>> {
+        return localDataSource.getFavoriteMovie().map {
             DataMapper.mapEntitiesToDomain(it)
         }
     }
 
-    override fun setFavoriteTourism(movie: Movie, state: Boolean) {
-        val movieEntity = DataMapper.mapDomainToEntity(movie)
-        appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(movieEntity, state) }
+    override fun setFavoriteMovie(movieDomain: MovieDomain, state: Boolean) {
+        val movieEntity = DataMapper.mapDomainToEntity(movieDomain)
+        appExecutors.diskIO().execute { localDataSource.setFavoriteMovie(movieEntity, state) }
     }
 }
 

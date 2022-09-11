@@ -4,35 +4,39 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "movies")
 data class MovieEntity(
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "tourismId")
-    var tourismId: String,
+    val id: Int,
 
-    @ColumnInfo(name = "name")
-    var name: String,
+    val overview: String,
 
-    @ColumnInfo(name = "description")
-    var description: String,
+    val originalLanguage: String,
 
-    @ColumnInfo(name = "address")
-    var address: String,
+    val originalTitle: String,
 
-    @ColumnInfo(name = "latitude")
-    var latitude: Double,
+    val video: Boolean,
 
-    @ColumnInfo(name = "longitude")
-    var longitude: Double,
+    val title: String,
 
-    @ColumnInfo(name = "like")
-    var like: Int,
+    val genreIds: String,
 
-    @ColumnInfo(name = "image")
-    var image: String,
+    val posterPath: String,
 
-    @ColumnInfo(name = "isFavorite")
+    val backdropPath: String,
+
+    val releaseDate: String,
+
+    val popularity: Double,
+
+    val voteAverage: Int,
+
+    val adult: Boolean,
+
+    val voteCount: Int,
+
     var isFavorite: Boolean = false
 )

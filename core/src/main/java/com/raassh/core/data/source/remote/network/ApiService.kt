@@ -4,6 +4,6 @@ import com.raassh.core.data.source.remote.response.ListMovieResponse
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("list")
+    @GET("popular")
     suspend fun getList(): ListMovieResponse
 }

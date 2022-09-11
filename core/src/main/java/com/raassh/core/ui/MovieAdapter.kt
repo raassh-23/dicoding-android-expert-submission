@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.raassh.core.domain.model.Movie
 import com.raassh.core.R
 import com.raassh.core.databinding.ItemListMovieBinding
+import com.raassh.core.ui.model.Movie
 import java.util.ArrayList
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
@@ -37,10 +37,10 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
         fun bind(data: Movie) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(data.image)
+                    .load(data.posterPath)
                     .into(ivItemImage)
-                tvItemTitle.text = data.name
-                tvItemSubtitle.text = data.address
+                tvItemTitle.text = data.title
+                tvItemSubtitle.text = data.releaseDate
             }
         }
 
