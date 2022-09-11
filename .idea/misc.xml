@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AndroidStudioProjects/dicoding-android-expert-submission/core/src/main/res/layout/item_list_movie.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/dicoding-android-expert-submission/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/dicoding-android-expert-submission/app/src/main/res/layout/fragment_list_movie.xml" value="0.4" />
+        <entry key="..\:/AndroidStudioProjects/dicoding-android-expert-submission/core/src/main/res/layout/item_list_movie.xml" value="0.4" />
         <entry key="..\:/AndroidStudioProjects/dicoding-android-expert-submission/core/src/main/res/layout/item_list_tourism.xml" value="0.4" />
       </map>
     </option>

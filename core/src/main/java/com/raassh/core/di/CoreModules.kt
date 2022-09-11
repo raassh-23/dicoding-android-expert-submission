@@ -10,7 +10,10 @@ import com.raassh.core.data.source.remote.RemoteDataSource
 import com.raassh.core.data.source.remote.network.ApiService
 import com.raassh.core.domain.repository.IMovieRepository
 import com.raassh.core.utils.AppExecutors
+import okhttp3.CipherSuite
+import okhttp3.ConnectionSpec
 import okhttp3.OkHttpClient
+import okhttp3.TlsVersion
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -33,15 +36,14 @@ val databaseModule = module {
 val networkModule = module {
     single {
         OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .addInterceptor {
                 val original = it.request()
-                val url = original.url.newBuilder()
-                    .addQueryParameter("api_key", BuildConfig.API_KEY).build()
-                it.proceed(original.newBuilder().url(url).build())
+                val newUrl = original.url.newBuilder()
+                    .addQueryParameter("api_key", BuildConfig.API_KEY)
+                    .build()
+                it.proceed(original.newBuilder().url(newUrl).build())
             }
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(120, TimeUnit.SECONDS)
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
     }
 

@@ -34,7 +34,7 @@ data class MovieResponse(
     val popularity: Double,
 
     @field:SerializedName("vote_average")
-    val voteAverage: Int,
+    val voteAverage: Double,
 
     @field:SerializedName("id")
     val id: Int,

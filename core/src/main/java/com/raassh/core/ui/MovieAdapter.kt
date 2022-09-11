@@ -40,7 +40,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
                     .load(data.posterPath)
                     .into(ivItemImage)
                 tvItemTitle.text = data.title
-                tvItemSubtitle.text = data.releaseDate
+                tvItemSubtitle.text = "Rating: ${data.voteAverage}"
             }
         }
 

@@ -1,5 +1,6 @@
 package com.raassh.core.data
 
+import com.raassh.core.data.source.local.LocalDataSource
 import com.raassh.core.data.source.remote.RemoteDataSource
 import com.raassh.core.data.source.remote.network.ApiResponse
 import com.raassh.core.data.source.remote.response.MovieResponse
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.map
 
 class MovieRepository(
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: com.raassh.core.data.source.local.LocalDataSource,
+    private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 ) : IMovieRepository {
 

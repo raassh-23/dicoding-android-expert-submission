@@ -21,17 +21,19 @@
             android:layout_height="0dp"
             android:background="@android:color/white"
             android:contentDescription="@string/image_description"
-            android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="H,1.5:1"
+            android:scaleType="center"
+            app:layout_constraintDimensionRatio="H,1:1.33"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic"/>
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="#7F000000"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/black_transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_item_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/top_space" />
@@ -40,8 +42,9 @@
             android:id="@+id/top_space"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_item_title"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -50,8 +53,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="#FFFFFFFF"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/white"
+            android:maxLines="2"
+            android:ellipsize="end"
             app:layout_constraintBottom_toTopOf="@+id/tv_item_subtitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,8 +69,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="#B3FFFFFF"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/light_grey"
             app:layout_constraintBottom_toBottomOf="@+id/iv_item_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

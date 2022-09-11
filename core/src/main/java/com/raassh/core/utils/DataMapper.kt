@@ -72,15 +72,17 @@ object DataMapper {
         isFavorite = false
     )
 
-    fun mapDomainToPresentation(input: MovieDomain) = Movie(
-        id = input.id,
-        overview = input.overview,
-        originalLanguage = input.originalLanguage,
-        title = input.title,
-        posterPath = input.posterPath,
-        backdropPath = input.backdropPath,
-        releaseDate = input.releaseDate,
-        voteAverage = input.voteAverage,
-        isFavorite = false
-    )
+    fun mapDomainToPresentation(input: List<MovieDomain>?) = input?.map {
+        Movie(
+            id = it.id,
+            overview = it.overview,
+            originalLanguage = it.originalLanguage,
+            title = it.title,
+            posterPath = it.posterPath,
+            backdropPath = it.backdropPath,
+            releaseDate = it.releaseDate,
+            voteAverage = it.voteAverage,
+            isFavorite = false
+        )
+    } ?: emptyList()
 }

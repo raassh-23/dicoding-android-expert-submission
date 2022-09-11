@@ -32,7 +32,7 @@ data class MovieEntity(
 
     val popularity: Double,
 
-    val voteAverage: Int,
+    val voteAverage: Double,
 
     val adult: Boolean,
 

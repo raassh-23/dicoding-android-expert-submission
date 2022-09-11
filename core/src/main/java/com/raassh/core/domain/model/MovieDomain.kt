@@ -16,7 +16,7 @@ data class MovieDomain(
     val backdropPath: String,
     val releaseDate: String,
     val popularity: Double,
-    val voteAverage: Int,
+    val voteAverage: Double,
     val adult: Boolean,
     val voteCount: Int,
     var isFavorite: Boolean,
