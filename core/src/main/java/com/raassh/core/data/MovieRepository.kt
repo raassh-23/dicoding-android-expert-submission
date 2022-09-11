@@ -10,6 +10,7 @@ import com.raassh.core.utils.AppExecutors
 import com.raassh.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import retrofit2.http.Query
 
 class MovieRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -47,5 +48,24 @@ class MovieRepository(
         val movieEntity = DataMapper.mapDomainToEntity(movieDomain)
         appExecutors.diskIO().execute { localDataSource.setFavoriteMovie(movieEntity, state) }
     }
+
+    override fun searchMovie(query: String): Flow<Resource<List<MovieDomain>>> =
+        object : NetworkBoundResource<List<MovieDomain>, List<MovieResponse>>(appExecutors) {
+            override fun loadFromDB(): Flow<List<MovieDomain>> {
+                return localDataSource.searchMovie(query).map {
+                    DataMapper.mapEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<MovieDomain>?): Boolean = true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<MovieResponse>>> =
+                remoteDataSource.searchMovie(query)
+
+            override suspend fun saveCallResult(data: List<MovieResponse>) {
+                val movieList = DataMapper.mapResponsesToEntities(data)
+                localDataSource.insertMovie(movieList)
+            }
+        }.asFlow()
 }
 

@@ -12,22 +12,36 @@ import java.lang.Exception
 
 class RemoteDataSource(private val apiService: ApiService) {
 
-    fun getAllMovie(): Flow<ApiResponse<List<MovieResponse>>> {
-        return flow {
-            try {
-                val response = apiService.getList()
-                val dataArray = response.results
+    fun getAllMovie(): Flow<ApiResponse<List<MovieResponse>>> = flow {
+        try {
+            val response = apiService.getList()
+            val dataArray = response.results
 
-                if (dataArray.isNotEmpty()) {
-                    emit(ApiResponse.Success(dataArray))
-                } else {
-                    emit(ApiResponse.Empty)
-                }
-            } catch (e: Exception) {
-                emit(ApiResponse.Error(e.toString()))
-                Log.e("RemoteDataSource", e.toString())
+            if (dataArray.isNotEmpty()) {
+                emit(ApiResponse.Success(dataArray))
+            } else {
+                emit(ApiResponse.Empty)
             }
-        }.flowOn(Dispatchers.IO)
-    }
+        } catch (e: Exception) {
+            emit(ApiResponse.Error(e.toString()))
+            Log.e("RemoteDataSource GetAllMovie", e.toString())
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun searchMovie(query: String) = flow {
+        try {
+            val response = apiService.searchMovie(query)
+            val dataArray = response.results
+
+            if (dataArray.isNotEmpty()) {
+                emit(ApiResponse.Success(dataArray))
+            } else {
+                emit(ApiResponse.Empty)
+            }
+        } catch (e: Exception) {
+            emit(ApiResponse.Error(e.toString()))
+            Log.e("RemoteDataSource searchMovie", e.toString())
+        }
+    }.flowOn(Dispatchers.IO)
 }
 

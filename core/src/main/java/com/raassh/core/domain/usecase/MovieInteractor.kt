@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.transform
 
-class MovieInteractor(private val movieRepository: IMovieRepository): MovieUseCase {
+class MovieInteractor(private val movieRepository: IMovieRepository) : MovieUseCase {
 
     override fun getAllMovie() = movieRepository.getAllMovie().transform { value ->
         if (value is Resource.Success) {
@@ -24,4 +24,14 @@ class MovieInteractor(private val movieRepository: IMovieRepository): MovieUseCa
 
     override fun setFavoriteMovie(movieDomain: MovieDomain, state: Boolean) =
         movieRepository.setFavoriteMovie(movieDomain, state)
+
+    override fun searchMovie(query: String) = movieRepository.searchMovie(query)
+        .transform { value ->
+            if (value is Resource.Success) {
+                val data = DataMapper.mapDomainToPresentation(value.data)
+                emit(Resource.Success(data))
+            } else {
+                emit(value as Resource<List<Movie>>)
+            }
+        }
 }

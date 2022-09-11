@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MyFavMovies</string>
     <string name="title_favorite">Favorite Movie</string>
+    <string name="search">Search A Movie</string>
+    <string name="search_hint">Enter movie title</string>
+
 </resources>

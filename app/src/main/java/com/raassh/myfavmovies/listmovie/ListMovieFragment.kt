@@ -1,12 +1,12 @@
 package com.raassh.myfavmovies.listmovie
 
-import androidx.lifecycle.ViewModelProvider
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
 import com.raassh.core.data.Resource
 import com.raassh.core.ui.MovieAdapter
@@ -19,6 +19,11 @@ class ListMovieFragment : Fragment() {
     val viewModel by viewModel<ListMovieViewModel>()
 
     private var binding: FragmentListMovieBinding? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,22 +45,63 @@ class ListMovieFragment : Fragment() {
         viewModel.movies.observe(viewLifecycleOwner) {
             if (it != null) {
                 when(it) {
-                    is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
+                    is Resource.Loading -> {
+                        binding?.progressBar?.visibility = View.VISIBLE
+                        binding?.rvMovie?.visibility = View.GONE
+                    }
                     is Resource.Success -> {
                         binding?.progressBar?.visibility = View.GONE
-                        Log.d("TAG", "onViewCreated: ${it.data}")
+                        binding?.rvMovie?.visibility = View.VISIBLE
                         adapter.setData(it.data)
                     }
                     is Resource.Error -> {
                         binding?.progressBar?.visibility = View.GONE
-                        Snackbar.make(view, it.message.toString(), Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(view, it.message.toString(), Snackbar.LENGTH_INDEFINITE).show()
                     }
                 }
             }
         }
 
         binding?.rvMovie?.adapter = adapter
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.option_menu, menu)
+
+        val activity = requireActivity()
+
+        val searchManager = activity.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val menuItem = menu.findItem(R.id.search)
+        val searchView = menuItem.actionView as SearchView
+
+        menuItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(p0: MenuItem): Boolean {
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(p0: MenuItem): Boolean {
+                viewModel.setQuery("")
+                return true
+            }
+        })
+
+        searchView.apply {
+            setSearchableInfo(searchManager.getSearchableInfo(activity.componentName))
+            queryHint = resources.getString(R.string.search_hint)
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    viewModel.setQuery(query)
+                    searchView.clearFocus()
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    return false
+                }
+            })
+        }
+
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onDestroyView() {
