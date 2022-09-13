@@ -81,6 +81,7 @@ object DataMapper {
             backdropPath = BuildConfig.BASE_IMAGE_URL + it.backdropPath,
             releaseDate = it.releaseDate,
             voteAverage = it.voteAverage,
+            voteCount = it.voteCount,
             isFavorite = false
         )
     } ?: emptyList()

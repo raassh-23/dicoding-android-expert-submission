@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.raassh.core.data.Resource
 import com.raassh.core.ui.MovieAdapter
@@ -26,7 +27,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
@@ -35,7 +36,8 @@ class HomeFragment : Fragment() {
 
         val adapter = MovieAdapter().apply {
             onItemClick = {
-                Log.d("TAG", "onViewCreated: $it")
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it)
+                findNavController().navigate(action)
             }
         }
 

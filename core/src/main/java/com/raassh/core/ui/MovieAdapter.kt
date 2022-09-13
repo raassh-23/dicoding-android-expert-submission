@@ -34,13 +34,19 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemListMovieBinding.bind(itemView)
+        private val context = itemView.context
+
         fun bind(data: Movie) {
             with(binding) {
                 Glide.with(itemView.context)
                     .load(data.posterPath)
                     .into(ivItemImage)
                 tvItemTitle.text = data.title
-                tvItemSubtitle.text = "Rating: ${data.voteAverage}"
+                tvItemSubtitle.text = if (data.voteCount == 0) {
+                    context.getString(R.string.no_vote)
+                } else {
+                    context.getString(R.string.vote_avg, data.voteAverage.toString())
+                }
             }
         }
 
