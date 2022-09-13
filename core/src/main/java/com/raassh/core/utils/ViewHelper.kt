@@ -1,9 +1,9 @@
 package com.raassh.core.utils
 
-import android.content.Context
 import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.raassh.core.R
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -12,6 +12,7 @@ import java.util.*
 fun ImageView.loadImage(url: String) {
     Glide.with(this.context)
         .load(url)
+        .error(R.drawable.ic_baseline_broken_image_24)
         .into(this)
 }
 

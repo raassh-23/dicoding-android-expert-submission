@@ -7,5 +7,6 @@
     <string name="rating">%1$s (%2$d ratings)</string>
     <string name="release_date_icon_desc">Release Date</string>
     <string name="add_favorite">Add to favorite</string>
-    <string name="remove_favorite">Remove from favorite</string>
+    <string name="not_found">No movie found</string>
+    <string name="error">Error: %1$s</string>
 </resources>

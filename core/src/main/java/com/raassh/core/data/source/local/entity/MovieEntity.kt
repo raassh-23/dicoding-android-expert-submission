@@ -24,9 +24,9 @@ data class MovieEntity(
 
     val genreIds: String,
 
-    val posterPath: String,
+    val posterPath: String? = null,
 
-    val backdropPath: String,
+    val backdropPath: String? = null,
 
     val releaseDate: String,
 

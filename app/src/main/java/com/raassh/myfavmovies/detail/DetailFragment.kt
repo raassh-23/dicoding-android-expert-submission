@@ -1,10 +1,12 @@
 package com.raassh.myfavmovies.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import com.raassh.core.ui.model.Movie
 import com.raassh.core.utils.loadImage
 import com.raassh.core.utils.withDateFormat
 import com.raassh.myfavmovies.R
@@ -44,19 +46,14 @@ class DetailFragment : Fragment() {
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.option_menu_detail, menu)
+                setFavoriteIcon(menu.findItem(R.id.favorite), movie)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.favorite -> {
                         viewModel.setFavoriteMovie(movie)
-                        menuItem.setIcon(
-                            if (movie.isFavorite) {
-                                R.drawable.ic_baseline_favorite_24
-                            } else {
-                                R.drawable.ic_baseline_favorite_border_24
-                            }
-                        )
+                        setFavoriteIcon(menuItem, movie)
                         true
                     }
                     else -> false
@@ -64,7 +61,16 @@ class DetailFragment : Fragment() {
             }
 
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
 
+    fun setFavoriteIcon(menuItem: MenuItem, movie: Movie) {
+        menuItem.setIcon(
+            if (movie.isFavorite) {
+                R.drawable.ic_baseline_favorite_24
+            } else {
+                R.drawable.ic_baseline_favorite_border_24
+            }
+        )
     }
 
     override fun onDestroy() {

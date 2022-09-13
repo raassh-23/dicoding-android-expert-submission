@@ -9,7 +9,6 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.raassh.core.data.Resource
 import com.raassh.core.ui.MovieAdapter
 import com.raassh.myfavmovies.R
@@ -42,42 +41,60 @@ class HomeFragment : Fragment() {
 
         viewModel.movies.observe(viewLifecycleOwner) {
             if (it != null) {
-                when(it) {
+                when (it) {
                     is Resource.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
-                        binding?.rvMovie?.visibility = View.GONE
+                        binding?.apply {
+                            progressBar.visibility = View.VISIBLE
+                            rvMovies.visibility = View.GONE
+                            tvError.visibility = View.GONE
+                        }
                     }
                     is Resource.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
-                        binding?.rvMovie?.visibility = View.VISIBLE
+                        binding?.apply {
+                            progressBar.visibility = View.GONE
+                            rvMovies.visibility = View.VISIBLE
+
+                            if (it.data.isNullOrEmpty()) {
+                                tvError.visibility = View.VISIBLE
+                                tvError.text = getString(R.string.not_found)
+                            }
+                        }
+
                         adapter.setData(it.data)
                     }
                     is Resource.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
-                        Snackbar.make(view, it.message.toString(), Snackbar.LENGTH_INDEFINITE).show()
+                        binding?.apply {
+                            progressBar.visibility = View.GONE
+                            tvError.visibility = View.VISIBLE
+                            tvError.text = it.message
+                        }
                     }
                 }
             }
         }
 
-        binding?.rvMovie?.adapter = adapter
+        binding?.rvMovies?.adapter = adapter
 
         val menuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.option_menu, menu)
 
-                val searchManager = menuHost.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-                val menuItem = menu.findItem(R.id.search)
-                val searchView = menuItem.actionView as SearchView
+                val searchManager =
+                    menuHost.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+                val searchMenuItem = menu.findItem(R.id.search)
+                val favoriteMenuItem = menu.findItem(R.id.favorite)
+                val searchView = searchMenuItem.actionView as SearchView
 
-                menuItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+                searchMenuItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
                     override fun onMenuItemActionExpand(p0: MenuItem): Boolean {
+                        favoriteMenuItem.isVisible = false
                         return true
                     }
 
                     override fun onMenuItemActionCollapse(p0: MenuItem): Boolean {
                         viewModel.setQuery("")
+                        favoriteMenuItem.isVisible = true
                         return true
                     }
                 })
@@ -100,7 +117,15 @@ class HomeFragment : Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return false
+                return when (menuItem.itemId) {
+                    R.id.favorite -> {
+                        // to move to feature modules with navigation component,
+                        // see https://developer.android.com/guide/navigation/navigation-dynamic
+                        findNavController().navigate(R.id.action_homeFragment_to_favoriteFragment)
+                        true
+                    }
+                    else -> false
+                }
             }
 
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)

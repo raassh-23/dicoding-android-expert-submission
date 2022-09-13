@@ -1,5 +1,6 @@
 package com.raassh.core.domain.usecase
 
+import android.util.Log
 import com.raassh.core.data.Resource
 import com.raassh.core.domain.repository.IMovieRepository
 import com.raassh.core.ui.model.Movie
@@ -16,7 +17,9 @@ class MovieInteractor(private val movieRepository: IMovieRepository) : MovieUseC
         }
     }
 
-    override fun getFavoriteMovie() = movieRepository.getFavoriteMovie()
+    override fun getFavoriteMovie() = movieRepository.getFavoriteMovie().transform {
+        emit(DataMapper.mapDomainToPresentation(it))
+    }
 
     override fun setFavoriteMovie(movieId: Int, state: Boolean) =
         movieRepository.setFavoriteMovie(movieId, state)
