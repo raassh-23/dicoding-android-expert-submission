@@ -4,11 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.raassh.core.R
 import com.raassh.core.databinding.ItemListMovieBinding
 import com.raassh.core.ui.model.Movie
-import java.util.ArrayList
+import com.raassh.core.utils.loadImage
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
 
@@ -38,11 +37,9 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
 
         fun bind(data: Movie) {
             with(binding) {
-                Glide.with(itemView.context)
-                    .load(data.posterPath)
-                    .into(ivItemImage)
+                ivItemImage.loadImage(data.posterPath)
                 tvItemTitle.text = data.title
-                tvItemSubtitle.text = if (data.voteCount == 0) {
+                tvItemRating.text = if (data.voteCount == 0) {
                     context.getString(R.string.no_vote)
                 } else {
                     context.getString(R.string.vote_avg, data.voteAverage.toString())

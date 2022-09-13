@@ -3,7 +3,6 @@ package com.raassh.myfavmovies.home
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider

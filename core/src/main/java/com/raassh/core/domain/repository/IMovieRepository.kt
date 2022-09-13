@@ -10,7 +10,7 @@ interface IMovieRepository {
 
     fun getFavoriteMovie(): Flow<List<MovieDomain>>
 
-    fun setFavoriteMovie(movieDomain: MovieDomain, state: Boolean)
+    fun setFavoriteMovie(movieId: Int, state: Boolean)
 
     fun searchMovie(query: String): Flow<Resource<List<MovieDomain>>>
 }

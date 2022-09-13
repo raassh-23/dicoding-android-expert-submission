@@ -8,7 +8,8 @@
         <entry key="..\:/AndroidStudioProjects/dicoding-android-expert-submission/app/src/main/res/layout/fragment_detail.xml" value="0.4" />
         <entry key="..\:/AndroidStudioProjects/dicoding-android-expert-submission/app/src/main/res/layout/fragment_list_movie.xml" value="0.4" />
         <entry key="..\:/AndroidStudioProjects/dicoding-android-expert-submission/app/src/main/res/menu/option_menu.xml" value="0.264" />
-        <entry key="..\:/AndroidStudioProjects/dicoding-android-expert-submission/core/src/main/res/layout/item_list_movie.xml" value="0.37589928057553956" />
+        <entry key="..\:/AndroidStudioProjects/dicoding-android-expert-submission/app/src/main/res/menu/option_menu_detail.xml" value="0.16614583333333333" />
+        <entry key="..\:/AndroidStudioProjects/dicoding-android-expert-submission/core/src/main/res/layout/item_list_movie.xml" value="1.0" />
         <entry key="..\:/AndroidStudioProjects/dicoding-android-expert-submission/core/src/main/res/layout/item_list_tourism.xml" value="0.4" />
       </map>
     </option>

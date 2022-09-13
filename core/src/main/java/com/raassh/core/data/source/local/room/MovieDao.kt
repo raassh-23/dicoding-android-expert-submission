@@ -16,9 +16,9 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMovie(movies: List<MovieEntity>)
 
-    @Update
-    fun updateFavoriteMovie(movie: MovieEntity)
+    @Query("UPDATE movies SET isFavorite = :state WHERE id = :movieId")
+    fun updateFavoriteMovie(movieId: Int, state: Boolean)
 
-    @Query("SELECT * FROM movies where title like '%' || :query || '%'")
+    @Query("SELECT * FROM movies where title like '%' || :query || '%' OR originalTitle like '%' || :query || '%'")
     fun searchMovie(query: String): Flow<List<MovieEntity>>
 }

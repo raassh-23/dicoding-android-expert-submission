@@ -32,7 +32,7 @@ object DataMapper {
         return movieList
     }
 
-    fun mapEntitiesToDomain(input: List<MovieEntity>): List<MovieDomain> =
+    fun mapEntitiesToDomain(input: List<MovieEntity>) =
         input.map {
             MovieDomain(
                 id = it.id,
@@ -53,32 +53,12 @@ object DataMapper {
             )
         }
 
-    fun mapDomainToEntity(input: MovieDomain) = MovieEntity(
-        id = input.id,
-        overview = input.overview,
-        originalLanguage = input.originalLanguage,
-        originalTitle = input.originalTitle,
-        video = input.video,
-        title = input.title,
-        genreIds = input.genreIds.joinToString(", "),
-        posterPath = input.posterPath,
-        backdropPath = input.backdropPath,
-        releaseDate = input.releaseDate,
-        popularity = input.popularity,
-        voteAverage = input.voteAverage,
-        adult = input.adult,
-        voteCount = input.voteCount,
-        isFavorite = false
-    )
-
     fun mapDomainToPresentation(input: List<MovieDomain>?) = input?.map {
         Movie(
             id = it.id,
             overview = it.overview,
-            originalLanguage = it.originalLanguage,
             title = it.title,
             posterPath = BuildConfig.BASE_IMAGE_URL + it.posterPath,
-            backdropPath = BuildConfig.BASE_IMAGE_URL + it.backdropPath,
             releaseDate = it.releaseDate,
             voteAverage = it.voteAverage,
             voteCount = it.voteCount,
