@@ -22,7 +22,7 @@ fun String.withDateFormat(): String {
         val date = format.parse(this) as Date
         DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(date)
     } catch (e: ParseException) {
-        Log.e("withDateFormat", "can't parse $this", )
+        Log.e("withDateFormat", "can't parse $this")
         this
     }
 }

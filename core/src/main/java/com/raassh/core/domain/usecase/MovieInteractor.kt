@@ -1,6 +1,6 @@
+@file:Suppress("unchecked_cast")
 package com.raassh.core.domain.usecase
 
-import android.util.Log
 import com.raassh.core.data.Resource
 import com.raassh.core.domain.repository.IMovieRepository
 import com.raassh.core.ui.model.Movie

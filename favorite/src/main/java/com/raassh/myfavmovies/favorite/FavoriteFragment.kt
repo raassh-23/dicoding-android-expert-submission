@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.raassh.core.ui.MovieAdapter
 import com.raassh.myfavmovies.favorite.databinding.FragmentFavoriteBinding
-import com.raassh.myfavmovies.home.HomeFragmentDirections
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 

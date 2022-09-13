@@ -1,7 +1,6 @@
 package com.raassh.myfavmovies.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment

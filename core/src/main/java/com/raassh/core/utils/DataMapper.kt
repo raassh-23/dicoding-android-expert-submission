@@ -1,9 +1,9 @@
 package com.raassh.core.utils
 
 import com.raassh.core.BuildConfig
-import com.raassh.core.domain.model.MovieDomain
 import com.raassh.core.data.source.local.entity.MovieEntity
 import com.raassh.core.data.source.remote.response.MovieResponse
+import com.raassh.core.domain.model.MovieDomain
 import com.raassh.core.ui.model.Movie
 
 object DataMapper {

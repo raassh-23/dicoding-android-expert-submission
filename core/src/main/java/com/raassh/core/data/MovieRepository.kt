@@ -10,7 +10,6 @@ import com.raassh.core.utils.AppExecutors
 import com.raassh.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import retrofit2.http.Query
 
 class MovieRepository(
     private val remoteDataSource: RemoteDataSource,

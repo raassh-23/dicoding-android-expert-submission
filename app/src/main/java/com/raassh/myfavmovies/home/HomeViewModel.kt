@@ -1,10 +1,13 @@
 package com.raassh.myfavmovies.home
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.raassh.core.domain.usecase.MovieUseCase
 
 class HomeViewModel(private val movieUseCase: MovieUseCase) : ViewModel() {
-    var query = MutableLiveData<String>()
+    private val query = MutableLiveData<String>()
 
     init {
         query.value = ""
