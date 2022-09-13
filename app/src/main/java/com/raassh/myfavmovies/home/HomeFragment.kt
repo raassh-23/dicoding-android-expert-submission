@@ -83,18 +83,15 @@ class HomeFragment : Fragment() {
                 val searchManager =
                     menuHost.getSystemService(Context.SEARCH_SERVICE) as SearchManager
                 val searchMenuItem = menu.findItem(R.id.search)
-                val favoriteMenuItem = menu.findItem(R.id.favorite)
                 val searchView = searchMenuItem.actionView as SearchView
 
                 searchMenuItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
                     override fun onMenuItemActionExpand(p0: MenuItem): Boolean {
-                        favoriteMenuItem.isVisible = false
                         return true
                     }
 
                     override fun onMenuItemActionCollapse(p0: MenuItem): Boolean {
                         viewModel.setQuery("")
-                        favoriteMenuItem.isVisible = true
                         return true
                     }
                 })
@@ -134,6 +131,11 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.setQuery("")
     }
 
 }
