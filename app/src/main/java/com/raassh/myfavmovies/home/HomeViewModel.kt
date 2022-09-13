@@ -1,14 +1,9 @@
-package com.raassh.myfavmovies.listmovie
+package com.raassh.myfavmovies.home
 
-import android.util.Log
 import androidx.lifecycle.*
-import com.raassh.core.data.Resource
-import com.raassh.core.domain.model.MovieDomain
 import com.raassh.core.domain.usecase.MovieUseCase
-import com.raassh.core.ui.model.Movie
-import com.raassh.core.utils.DataMapper
 
-class ListMovieViewModel(val movieUseCase: MovieUseCase) : ViewModel() {
+class HomeViewModel(val movieUseCase: MovieUseCase) : ViewModel() {
     var query = MutableLiveData<String>()
 
     init {

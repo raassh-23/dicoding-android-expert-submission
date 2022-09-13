@@ -1,15 +1,9 @@
 package com.raassh.myfavmovies
 
-import android.app.SearchManager
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.widget.Toast
-import androidx.appcompat.widget.SearchView
 import com.raassh.myfavmovies.databinding.ActivityMainBinding
-import com.raassh.myfavmovies.listmovie.ListMovieFragment
+import com.raassh.myfavmovies.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -18,12 +12,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment, ListMovieFragment())
-                .commit()
-            supportActionBar?.title = getString(R.string.app_name)
-        }
     }
 }
