@@ -3,33 +3,26 @@ package com.raassh.core.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.raassh.core.R
 import com.raassh.core.databinding.ItemListMovieBinding
 import com.raassh.core.ui.model.Movie
 import com.raassh.core.utils.loadImage
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
-
-    private var listData = ArrayList<Movie>()
+class MovieAdapter : ListAdapter<Movie, MovieAdapter.ListViewHolder>(DIFF_CALLBACK) {
     var onItemClick: ((Movie) -> Unit)? = null
-
-    fun setData(newListData: List<Movie>?) {
-        if (newListData == null) return
-        listData.clear()
-        listData.addAll(newListData)
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ListViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_list_movie, parent, false)
         )
 
-    override fun getItemCount() = listData.size
+    override fun getItemCount() = currentList.size
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val data = listData[position]
+        val data = currentList[position]
         holder.bind(data)
     }
 
@@ -51,7 +44,19 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
 
         init {
             binding.root.setOnClickListener {
-                onItemClick?.invoke(listData[adapterPosition])
+                onItemClick?.invoke(currentList[adapterPosition])
+            }
+        }
+    }
+
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem == newItem
             }
         }
     }

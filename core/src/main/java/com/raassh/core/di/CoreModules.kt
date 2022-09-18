@@ -51,7 +51,15 @@ val networkModule = module {
                     .build()
                 it.proceed(original.newBuilder().url(newUrl).build())
             }
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(
+                HttpLoggingInterceptor().setLevel(
+                    if (BuildConfig.DEBUG) {
+                        HttpLoggingInterceptor.Level.BODY
+                    } else {
+                        HttpLoggingInterceptor.Level.NONE
+                    }
+                )
+            )
             .certificatePinner(certificatePinner)
             .build()
     }

@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
                             }
                         }
 
-                        adapter.setData(it.data)
+                        adapter.submitList(it.data)
                     }
                     is Resource.Error -> {
                         binding?.apply {
