@@ -9,6 +9,8 @@ import com.raassh.core.data.source.remote.RemoteDataSource
 import com.raassh.core.data.source.remote.network.ApiService
 import com.raassh.core.domain.repository.IMovieRepository
 import com.raassh.core.utils.AppExecutors
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -22,8 +24,11 @@ val databaseModule = module {
     }
 
     single {
+        val factory = SupportFactory(SQLiteDatabase.getBytes(BuildConfig.PASSPHRASE.toCharArray()))
+
         Room.databaseBuilder(androidContext(), MovieDatabase::class.java, "movies.db")
             .fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
             .build()
     }
 }
