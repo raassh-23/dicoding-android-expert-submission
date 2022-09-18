@@ -17,7 +17,7 @@ object DataMapper {
                 originalTitle = it.originalTitle,
                 video = it.video,
                 title = it.title,
-                genreIds = it.genreIds.joinToString(", "),
+                genreIds = it.genreIds?.joinToString(", "),
                 posterPath = it.posterPath,
                 backdropPath = it.backdropPath,
                 releaseDate = it.releaseDate,
@@ -41,7 +41,7 @@ object DataMapper {
                 originalTitle = it.originalTitle,
                 video = it.video,
                 title = it.title,
-                genreIds = it.genreIds.split(", "),
+                genreIds = it.genreIds?.split(", "),
                 posterPath = it.posterPath,
                 backdropPath = it.backdropPath,
                 releaseDate = it.releaseDate,
@@ -56,12 +56,12 @@ object DataMapper {
     fun mapDomainToPresentation(input: List<MovieDomain>?) = input?.map {
         Movie(
             id = it.id,
-            overview = it.overview,
-            title = it.title,
+            overview = it.overview ?: "",
+            title = it.title ?: "",
             posterPath = BuildConfig.BASE_IMAGE_URL + it.posterPath,
-            releaseDate = it.releaseDate,
-            voteAverage = it.voteAverage,
-            voteCount = it.voteCount,
+            releaseDate = it.releaseDate ?: "",
+            voteAverage = it.voteAverage ?: 0.0,
+            voteCount = it.voteCount ?: 0,
             isFavorite = it.isFavorite
         )
     } ?: emptyList()

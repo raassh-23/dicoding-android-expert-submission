@@ -9,4 +9,6 @@
     <string name="add_favorite">Add to favorite</string>
     <string name="not_found">No movie found</string>
     <string name="error">Error: %1$s</string>
+    <string name="no_overview">No synopsis</string>
+    <string name="no_release_date">No release date</string>
 </resources>

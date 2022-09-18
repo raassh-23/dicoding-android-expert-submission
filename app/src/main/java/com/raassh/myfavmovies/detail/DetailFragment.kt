@@ -30,15 +30,16 @@ class DetailFragment : Fragment() {
 
         val movie = DetailFragmentArgs.fromBundle(requireArguments()).movie
         binding?.apply {
-            tvTitle.text = movie.title
+            tvTitle.text = movie.title.ifEmpty { getString(com.raassh.core.R.string.no_title) }
             ivImage.loadImage(movie.posterPath)
             tvReleaseDate.text = movie.releaseDate.withDateFormat()
+                .ifEmpty { getString(R.string.no_release_date) }
             tvRating.text = if (movie.voteCount == 0) {
                 getString(com.raassh.core.R.string.no_vote)
             } else {
                 getString(R.string.rating, movie.voteAverage.toString(), movie.voteCount)
             }
-            tvSynopsis.text = movie.overview
+            tvSynopsis.text = movie.overview.ifEmpty { getString(R.string.no_overview) }
         }
 
         val menuHost = requireActivity()

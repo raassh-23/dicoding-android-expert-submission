@@ -10,31 +10,31 @@ data class MovieEntity(
     @NonNull
     val id: Int,
 
-    val overview: String,
+    val overview: String? = null,
 
-    val originalLanguage: String,
+    val originalLanguage: String? = null,
 
-    val originalTitle: String,
+    val originalTitle: String? = null,
 
-    val video: Boolean,
+    val video: Boolean? = null,
 
-    val title: String,
+    val title: String? = null,
 
-    val genreIds: String,
+    val genreIds: String? = null,
 
     val posterPath: String? = null,
 
     val backdropPath: String? = null,
 
-    val releaseDate: String,
+    val releaseDate: String? = null,
 
-    val popularity: Double,
+    val popularity: Double? = null,
 
-    val voteAverage: Double,
+    val voteAverage: Double? = null,
 
-    val adult: Boolean,
+    val adult: Boolean? = null,
 
-    val voteCount: Int,
+    val voteCount: Int? = null,
 
     var isFavorite: Boolean = false
 )

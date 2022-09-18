@@ -5,6 +5,7 @@
     <string name="text_subtitle">Sample of subtitle text</string>
     <string name="vote_avg">Rating: %1$s</string>
     <string name="no_vote">No rating</string>
+    <string name="no_title">No title</string>
     <string name="rating_icon_description">Rating icon</string>
     <string name="poster_description">Movie Poster</string>
 </resources>

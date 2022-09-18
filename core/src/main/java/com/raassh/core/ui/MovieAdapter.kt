@@ -22,7 +22,9 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_list_movie, parent, false))
+        ListViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_list_movie, parent, false)
+        )
 
     override fun getItemCount() = listData.size
 
@@ -38,7 +40,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
         fun bind(data: Movie) {
             with(binding) {
                 ivItemImage.loadImage(data.posterPath)
-                tvItemTitle.text = data.title
+                tvItemTitle.text = data.title.ifEmpty { context.getString(R.string.no_title) }
                 tvItemRating.text = if (data.voteCount == 0) {
                     context.getString(R.string.no_vote)
                 } else {
