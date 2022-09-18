@@ -17,6 +17,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.URI
 
 val databaseModule = module {
     factory {
@@ -35,6 +36,13 @@ val databaseModule = module {
 
 val networkModule = module {
     single {
+        val hostname = URI(BuildConfig.BASE_URL).host
+        val certificatePinner = okhttp3.CertificatePinner.Builder()
+            .add(hostname, "sha256/oD/WAoRPvbez1Y2dfYfuo4yujAcYHXdv1Ivb2v2MOKk=")
+            .add(hostname, "sha256/JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=")
+            .add(hostname, "sha256/++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=")
+            .build()
+
         OkHttpClient.Builder()
             .addInterceptor {
                 val original = it.request()
@@ -44,6 +52,7 @@ val networkModule = module {
                 it.proceed(original.newBuilder().url(newUrl).build())
             }
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .certificatePinner(certificatePinner)
             .build()
     }
 
