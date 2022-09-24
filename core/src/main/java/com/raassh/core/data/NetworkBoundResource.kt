@@ -6,7 +6,7 @@ import com.raassh.core.data.source.remote.network.ApiResponse
 import com.raassh.core.utils.AppExecutors
 import kotlinx.coroutines.flow.*
 
-abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecutors: AppExecutors) {
+abstract class NetworkBoundResource<ResultType, RequestType> {
 
     private val result: Flow<Resource<ResultType>> = flow {
         emit(Resource.Loading())

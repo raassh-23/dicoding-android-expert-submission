@@ -18,7 +18,7 @@ class MovieRepository(
 ) : IMovieRepository {
 
     override fun getAllMovie(): Flow<Resource<List<MovieDomain>>> =
-        object : NetworkBoundResource<List<MovieDomain>, List<MovieResponse>>(appExecutors) {
+        object : NetworkBoundResource<List<MovieDomain>, List<MovieResponse>>() {
             override fun loadFromDB(): Flow<List<MovieDomain>> {
                 return localDataSource.getAllMovie().map {
                     DataMapper.mapEntitiesToDomain(it)
@@ -50,7 +50,7 @@ class MovieRepository(
     }
 
     override fun searchMovie(query: String): Flow<Resource<List<MovieDomain>>> =
-        object : NetworkBoundResource<List<MovieDomain>, List<MovieResponse>>(appExecutors) {
+        object : NetworkBoundResource<List<MovieDomain>, List<MovieResponse>>() {
             override fun loadFromDB(): Flow<List<MovieDomain>> {
                 return localDataSource.searchMovie(query).map {
                     DataMapper.mapEntitiesToDomain(it)
