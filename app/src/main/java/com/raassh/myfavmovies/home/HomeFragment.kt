@@ -2,7 +2,9 @@ package com.raassh.myfavmovies.home
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
@@ -119,6 +121,10 @@ class HomeFragment : Fragment() {
                         // to move to feature modules with navigation component,
                         // see https://developer.android.com/guide/navigation/navigation-dynamic
                         findNavController().navigate(R.id.action_homeFragment_to_favoriteFragment)
+                        true
+                    }
+                    R.id.setting -> {
+                        startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
                         true
                     }
                     else -> false

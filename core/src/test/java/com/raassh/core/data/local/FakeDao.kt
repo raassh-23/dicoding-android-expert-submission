@@ -2,7 +2,6 @@ package com.raassh.core.data.local
 
 import com.raassh.core.data.source.local.entity.MovieEntity
 import com.raassh.core.data.source.local.room.MovieDao
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class FakeDao : MovieDao {

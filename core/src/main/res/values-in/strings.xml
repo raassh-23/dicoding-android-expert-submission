@@ -1,0 +1,10 @@
+<resources>
+    <string name="image_description">Gambar</string>
+    <string name="text_primary">Contoh text judul</string>
+    <string name="text_subtitle">Contoh text subtitle</string>
+    <string name="vote_avg">Nilai: %1$s</string>
+    <string name="no_vote">Tidak ada nilai</string>
+    <string name="no_title">Tidak ada judul</string>
+    <string name="rating_icon_description">Ikon nilai</string>
+    <string name="poster_description">Poster Film</string>
+</resources>

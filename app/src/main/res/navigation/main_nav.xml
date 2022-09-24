@@ -28,6 +28,7 @@
             app:argType="com.raassh.core.ui.model.Movie" />
     </fragment>
 
+    <!--suppress AndroidDomInspection -->
     <fragment
         app:moduleName="favorite"
         android:id="@+id/favoriteFragment"

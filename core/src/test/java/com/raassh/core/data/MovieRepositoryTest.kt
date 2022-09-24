@@ -1,22 +1,15 @@
 package com.raassh.core.data
 
-import com.raassh.core.data.local.FakeDao
-import com.raassh.core.data.remote.FakeApiService
-import com.raassh.core.data.source.local.LocalDataSource
-import com.raassh.core.data.source.remote.RemoteDataSource
 import com.raassh.core.di.repositoryModule
 import com.raassh.core.di.testModules
 import com.raassh.core.domain.model.MovieDomain
 import com.raassh.core.domain.repository.IMovieRepository
-import com.raassh.core.utils.AppExecutors
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.test.*
 import org.junit.After
 import org.junit.Assert.*
-
 import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.startKoin
@@ -26,7 +19,7 @@ import org.koin.test.inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MovieRepositoryTest : KoinTest {
-    val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()
+    private val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()
     private val movieRepository by inject<IMovieRepository>()
 
     @Before
